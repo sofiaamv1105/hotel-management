@@ -36,10 +36,8 @@ class HotelController extends Controller
             'email_contacto'   => 'nullable|email|max:255',
         ]);
 
-        // Crear el registro del hotel
         Hotel::create($request->all());
 
-        // Redirigir a la lista de hoteles con un mensaje de éxito
         return redirect()->route('hotels.index')->with('success', 'Hotel creado exitosamente.');
     }
 

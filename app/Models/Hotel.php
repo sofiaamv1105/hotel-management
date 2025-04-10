@@ -11,4 +11,5 @@ class Hotel extends Model
     protected $table = 'hotels';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = ['nombre', 'ubicación', 'número_telefono', 'email_contacto'];
 }
