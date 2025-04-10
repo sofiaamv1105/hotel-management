@@ -21,7 +21,7 @@ class HotelController extends Controller
      */
     public function create()
     {
-        //
+        return view('hotels.create');
     }
 
     /**
@@ -29,7 +29,18 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'           => 'required|string|max:255',
+            'ubicación'        => 'required|string|max:255',
+            'número_telefono'  => 'required|string|max:50',
+            'email_contacto'   => 'nullable|email|max:255',
+        ]);
+
+        // Crear el registro del hotel
+        Hotel::create($request->all());
+
+        // Redirigir a la lista de hoteles con un mensaje de éxito
+        return redirect()->route('hotels.index')->with('success', 'Hotel creado exitosamente.');
     }
 
     /**
