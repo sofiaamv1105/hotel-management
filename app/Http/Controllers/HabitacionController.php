@@ -21,7 +21,7 @@ class HabitacionController extends Controller
      */
     public function create()
     {
-        //
+        return view('habitaciones.create');
     }
 
     /**
@@ -29,9 +29,18 @@ class HabitacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'numero' => 'required',
+            'tipo' => 'required',
+            'precio' => 'required|numeric',
+            'estado' => 'required',
+        ]);
 
+        Habitacion::create($request->all());
+
+        return redirect()->route('habitaciones.index')->with('success', 'Habitación creada correctamente.');
+    }
+    
     /**
      * Display the specified resource.
      */
