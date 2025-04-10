@@ -56,7 +56,7 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        return view('hotels.edit', compact('hotel'));
     }
 
     /**
@@ -64,7 +64,18 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        //
+        $request->validate([
+            'nombre'           => 'required|string|max:255',
+            'ubicación'        => 'required|string|max:255',
+            'número_telefono'  => 'required|string|max:50',
+            'email_contacto'   => 'nullable|email|max:255',
+        ]);
+
+        // Actualizar el hotel con los datos proporcionados
+        $hotel->update($request->all());
+
+        // Redirigir a la lista de hoteles con un mensaje de éxito
+        return redirect()->route('hotels.index')->with('success', 'Hotel actualizado exitosamente.');
     }
 
     /**
@@ -72,6 +83,8 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+
+        return redirect()->route('hotels.index')->with('success', 'Hotel eliminado exitosamente.');
     }
 }
