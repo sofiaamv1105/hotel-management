@@ -32,13 +32,13 @@ class ReservaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'habitacion_id' => 'required|exists:habitacion,id',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required',
-            'cliente_nombre' => 'required',
-            'cliente_email' => 'required',
+            'habitacion_id'   => 'required|exists:habitacions,id',
+            'fecha_inicio'    => 'required|date|before_or_equal:fecha_fin',
+            'fecha_fin'       => 'required|date|after_or_equal:fecha_inicio',
+            'cliente_nombre'  => 'required|string|max:255',
+            'cliente_email'   => 'required|email|max:255',
         ]);
-    
+        
         Reserva::create($request->all());
     
         return redirect()->route('reservas.index')->with('success', 'Reserva creada correctamente.');
@@ -66,7 +66,17 @@ class ReservaController extends Controller
      */
     public function update(Request $request, Reserva $reserva)
     {
-        //
+        $request->validate([
+            'habitacion_id'   => 'required|exists:habitacions,id',
+            'fecha_inicio'    => 'required|date|before_or_equal:fecha_fin',
+            'fecha_fin'       => 'required|date|after_or_equal:fecha_inicio',
+            'cliente_nombre'  => 'required|string|max:255',
+            'cliente_email'   => 'required|email|max:255',
+        ]);        
+    
+        $reserva->update($request->all());
+
+        return redirect()->route('reservas.index')->with('success', 'Reserva actualizada correctamente.');
     }
 
     /**

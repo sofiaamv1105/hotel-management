@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>{{ isset($reserva) ? 'Editar' : 'Crear' }} Reserva</title>
-  </head>
+    <h1>{{ isset($reserva) ? 'Editar' : 'Crear' }} Reserva</h1>
+    </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div class="container-fluid">
@@ -52,17 +52,17 @@
 
   <div class="mb-3">
     <label for="fecha_fin" class="form-label">Fecha de Fin</label>
-    <input type="date" step="0.01" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ old('fecha_fin', $reserva->fecha_fin ?? '') }}">
+    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ old('fecha_fin', $reserva->fecha_fin ?? '') }}">
   </div>
 
   <div class="mb-3">
     <label for="cliente_nombre" class="form-label">Nombre del Cliente</label>
-    <input type="text" step="0.01" name="cliente_nombre" id="cliente_nombre" class="form-control" value="{{ old('cliente_nombre', $reserva->cliente_nombre ?? '') }}">
+    <input type="text" name="cliente_nombre" id="cliente_nombre" class="form-control" value="{{ old('cliente_nombre', $reserva->cliente_nombre ?? '') }}">
   </div>
 
   <div class="mb-3">
     <label for="cliente_email" class="form-label">Email del Cliente</label>
-    <input type="text" step="0.01" name="cliente_email" id="cliente_email" class="form-control" value="{{ old('cliente_email', $reserva->cliente_email ?? '') }}">
+    <input type="text" name="cliente_email" id="cliente_email" class="form-control" value="{{ old('cliente_email', $reserva->cliente_email ?? '') }}">
   </div>
 
   <button type="submit" class="btn btn-primary">{{ isset($reserva) ? 'Actualizar' : 'Crear' }}</button>
