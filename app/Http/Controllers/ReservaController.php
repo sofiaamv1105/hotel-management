@@ -12,7 +12,8 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $reservas = Reserva::all();
+        return view('reservas.index', compact('reservas'));
     }
 
     /**
@@ -20,7 +21,8 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        //
+        $reservas = Reserva::all();
+        return view('reservas.create', compact('reservas'));
     }
 
     /**

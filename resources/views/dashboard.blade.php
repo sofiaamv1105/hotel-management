@@ -17,6 +17,10 @@
                     <a href="{{ route('habitacions.index') }}" class="{{ request()->routeIs('habitacions.*') ? 'active' : '' }}">
                         Habitaciones
                     </a>
+                    <br>
+                    <a href="{{ route('reservas.index') }}" class="{{ request()->routeIs('reservas.*') ? 'active' : '' }}">
+                        Reservas
+                    </a>
                 </div>
             </div>
         </div>
