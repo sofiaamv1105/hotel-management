@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\Habitacion;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -21,8 +22,8 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        $reservas = Reserva::all();
-        return view('reservas.create', compact('reservas'));
+        $habitacions = Habitacion::all();
+        return view('reservas.create', compact('habitacions'));
     }
 
     /**
@@ -30,7 +31,17 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'habitacion_id' => 'required|exists:habitacion,id',
+            'fecha_inicio' => 'required',
+            'fecha_fin' => 'required',
+            'cliente_nombre' => 'required',
+            'cliente_email' => 'required',
+        ]);
+    
+        Reserva::create($request->all());
+    
+        return redirect()->route('reservas.index')->with('success', 'Reserva creada correctamente.');
     }
 
     /**
@@ -46,7 +57,8 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $reserva)
     {
-        //
+        $habitacions = Habitacion::all();
+        return view('reservas.edit', compact('reserva', 'habitacions'));
     }
 
     /**
