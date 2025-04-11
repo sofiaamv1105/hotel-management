@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\HabitacionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +27,10 @@ Route::get('/hotels/hotel', [HotelController::class, 'create'])->name('hotels.cr
 Route::delete('/hotels/{hotel}', [HotelController::class, 'destroy'])->name('hotels.destroy');
 Route::put('/hotels/{hotel}', [HotelController::class, 'update'])->name('hotels.update');
 Route::get('/hotels/{hotel}/edit', [HotelController::class, 'edit'])->name('hotels.edit');
+
+Route::get('/habitacions', [HabitacionController::class, 'index'])->name('habitacions.index');
+Route::post('/habitacions', [HabitacionController::class, 'store'])->name('habitacions.store');
+Route::get('/habitacions/habitacion', [HabitacionController::class, 'create'])->name('habitacions.create');
+Route::delete('/habitacions/{habitacion}', [HabitacionController::class, 'destroy'])->name('habitacions.destroy');
+Route::put('/habitacions/{habitacion}', [HabitacionController::class, 'update'])->name('habitacions.update');
+Route::get('/habitacions/{habitacion}/edit', [HabitacionController::class, 'edit'])->name('habitacions.edit');

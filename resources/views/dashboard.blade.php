@@ -11,10 +11,10 @@
                 <div class="p-6 text-gray-900">
                     <div class="menu-header">Menú Principal</div>
                     <a href="{{ route('hotels.index') }}" class="{{ request()->routeIs('hotels.*') ? 'active' : '' }}">
-                        Hotels
+                        Hoteles
                     </a>
                     <br>
-                    <a href="{{ route('habitaciones.index') }}" class="{{ request()->routeIs('habitaciones.*') ? 'active' : '' }}">
+                    <a href="{{ route('habitacions.index') }}" class="{{ request()->routeIs('habitacions.*') ? 'active' : '' }}">
                         Habitaciones
                     </a>
                 </div>

@@ -26,7 +26,7 @@
   <body>
     <div class="container mt-4">
       <h1>Listado de Habitaciones</h1>
-      <a href="{{ route('habitaciones.create') }}" class="btn btn-success mb-3">Agregar Habitación</a>
+      <a href="{{ route('habitacions.create') }}" class="btn btn-success mb-3">Agregar Habitación</a>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -39,16 +39,16 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($habitaciones as $habitacion)
-          <tr>
-            <td>{{ $habitacion->id }}</td>
-            <td>{{ $habitacion->hotel->name }}</td>
-            <td>{{ $habitacion->type }}</td>
-            <td>{{ $habitacion->number }}</td>
-            <td>{{ $habitacion->price }}</td>
+        @foreach ($habitaciones as $habitacion)
+        <tr>
+            <td>{{ $habitacion->hotel_id }}</td>
+            <td>{{ $habitacion->hotel->nombre }}</td>
+            <td>{{ $habitacion->tipo }}</td>
+            <td>{{ $habitacion->número }}</td>
+            <td>{{ $habitacion->precio_por_noche }}</td>
             <td>
-              <a href="{{ route('habitaciones.edit', $habitacion->id) }}" class="btn btn-info btn-sm">Editar</a>
-              <form action="{{ route('habitaciones.destroy', $habitacion->id) }}" method="POST" style="display:inline-block;">
+              <a href="{{ route('habitacions.edit', $habitacion->id) }}" class="btn btn-info btn-sm">Editar</a>
+              <form action="{{ route('habitacions.destroy', $habitacion->id) }}" method="POST" style="display:inline-block;">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>

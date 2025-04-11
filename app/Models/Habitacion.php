@@ -10,7 +10,7 @@ class Habitacion extends Model
     use HasFactory;
     protected $table = 'habitacions';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = ['hotel_id', 'número', 'tipo', 'precio_por_noche'];
 
     public function hotel()

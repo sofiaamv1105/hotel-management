@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class HabitacionController extends Controller
@@ -13,7 +14,7 @@ class HabitacionController extends Controller
     public function index()
     {
         $habitaciones = Habitacion::all();
-        return view('habitaciones.index', compact('habitaciones'));
+        return view('habitacions.index', compact('habitaciones'));
     }
 
     /**
@@ -21,7 +22,8 @@ class HabitacionController extends Controller
      */
     public function create()
     {
-        return view('habitaciones.create');
+        $hotels = Hotel::all();
+        return view('habitacions.create', compact('hotels'));
     }
 
     /**
@@ -29,18 +31,19 @@ class HabitacionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'numero' => 'required',
-            'tipo' => 'required',
-            'precio' => 'required|numeric',
-            'estado' => 'required',
-        ]);
+    $request->validate([
+        'hotel_id' => 'required|exists:hotels,id',
+        'número' => 'required',
+        'tipo' => 'required',
+        'precio_por_noche' => 'required|numeric',
+    ]);
 
-        Habitacion::create($request->all());
+    Habitacion::create($request->all());
 
-        return redirect()->route('habitaciones.index')->with('success', 'Habitación creada correctamente.');
+    return redirect()->route('habitacions.index')->with('success', 'Habitación creada correctamente.');
     }
-    
+
+
     /**
      * Display the specified resource.
      */
@@ -54,7 +57,8 @@ class HabitacionController extends Controller
      */
     public function edit(Habitacion $habitacion)
     {
-        //
+        $hotels = Hotel::all();
+        return view('habitacions.edit', compact('habitacion', 'hotels'));
     }
 
     /**
@@ -62,7 +66,16 @@ class HabitacionController extends Controller
      */
     public function update(Request $request, Habitacion $habitacion)
     {
-        //
+    $request->validate([
+        'hotel_id' => 'required|exists:hotels,id',
+        'número' => 'required',
+        'tipo' => 'required',
+        'precio_por_noche' => 'required|numeric',
+    ]);
+
+    $habitacion->update($request->all());
+
+    return redirect()->route('habitacions.index')->with('success', 'Habitación actualizada correctamente.');
     }
 
     /**
@@ -70,6 +83,7 @@ class HabitacionController extends Controller
      */
     public function destroy(Habitacion $habitacion)
     {
-        //
+        $habitacion->delete();
+        return redirect()->route('habitacions.index')->with('success', 'Habitación eliminada correctamente.');
     }
 }
