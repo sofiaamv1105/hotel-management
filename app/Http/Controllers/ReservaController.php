@@ -84,6 +84,7 @@ class ReservaController extends Controller
      */
     public function destroy(Reserva $reserva)
     {
-        //
+        $reserva->delete();
+        return redirect()->route('reservas.index')->with('success', 'Reserva eliminada correctamente.');
     }
 }
