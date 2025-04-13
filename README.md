@@ -1,66 +1,142 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏨 Sistema de Gestión de Hoteles con Laravel 11 + Breeze
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es una aplicación web desarrollada con Laravel 11. Permite gestionar la información de hoteles, habitaciones y reservas mediante operaciones CRUD. También incluye autenticación de usuarios utilizando Laravel Breeze para proteger las funcionalidades del sistema.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Descripción General
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El objetivo principal es construir un sistema completo para administrar:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Hoteles**: nombre, ubicación, teléfono y correo de contacto.
+- **Habitaciones**: vinculadas a hoteles, con número, tipo (ej. simple, doble, suite) y precio por noche.
+- **Reservas**: asociadas a habitaciones, con información del cliente; correo de contacto y nombre del cliente, y fechas de reserva.
 
-## Learning Laravel
+Los usuarios autenticados podrán realizar operaciones CRUD sobre estas entidades, garantizando integridad en las relaciones entre ellas.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🗃️ Estructura de Base de Datos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Hoteles
 
-## Laravel Sponsors
+| Campo            | Tipo     |
+|------------------|----------|
+| id               | PK       |
+| nombre           | string   |
+| ubicación        | string   |
+| número_telefono  | string   |
+| email_contacto   | string   |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Habitaciones
 
-### Premium Partners
+| Campo            | Tipo     |
+|------------------|----------|
+| id               | PK       |
+| hotel_id         | FK       |
+| número           | string   |
+| tipo             | string   |
+| precio_por_noche | decimal  |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Reservas
 
-## Contributing
+| Campo            | Tipo     |
+|------------------|----------|
+| id               | PK       |
+| habitación_id    | FK       |
+| fecha_inicio     | date     |
+| fecha_fin        | date     |
+| cliente_nombre   | string   |
+| cliente_email    | string   |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🚀 Requisitos del Proyecto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### ✅ Migraciones
+- Definidas para cada entidad (`hotels`, `habitacions`, `reservas`).
+- Relaciones con claves foráneas correctamente implementadas.
 
-## Security Vulnerabilities
+### ✅ Modelos
+- Relaciones establecidas:
+  - Un hotel tiene muchas habitaciones.
+  - Una habitación tiene muchas reservas.
+  - Una reserva pertenece a una habitación.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ✅ Controladores
+- Implementación CRUD para las tres entidades:
+  - `HotelController`
+  - `HabitacionController`
+  - `ReservaController`
 
-## License
+### ✅ Vistas
+- Interfaz construida con Blade.
+- Listado, creación, edición, eliminación y detalles de cada entidad.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### ✅ Rutas
+- Todas las rutas están protegidas con el middleware `auth`.
+- Definidas en `routes/web.php`.
+
+### ✅ Autenticación
+- Laravel Breeze implementado.
+- Registro, login y logout funcionales.
+
+---
+
+## 🧑‍💻 Instalación y Configuración
+
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/sofiaamv1105/hotel-management
+cd hotel-management
+```
+
+2. **Instalar dependencias**
+```bash
+composer install
+npm install
+```
+
+
+4. **Configurar base de datos en `.env`**  
+   Asegúrate de definir:
+   ```
+   DB_DATABASE=hotel.+-management
+   ```
+
+5. **Ejecutar migraciones**
+```bash
+php artisan migrate
+```
+
+6. **Compilar assets**
+```bash
+npm run dev
+```
+
+7. **Levantar el servidor**
+```bash
+php artisan serve
+```
+
+Accede a la app en `http://localhost:8000`.
+
+---
+
+## 🔐 Autenticación
+
+Laravel Breeze está preinstalado, proporcionando:
+
+- Registro de usuarios
+- Inicio y cierre de sesión
+- Protección de rutas mediante middleware `auth`
+
+---
+
+## 🌳 Git y GitHub
+
+- Rama principal: `main`
+
+---
+
+¡Gracias por revisar este proyecto! ✨
